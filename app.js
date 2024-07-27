@@ -8,9 +8,26 @@ require("./db");
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
+const mongoose= require('mongoose');
+const cors = require('cors');
+
+//import middleware
 const {isAuthenticated} = require("./middleware/jwt.middleware");
 
+//create an Express app
 const app = express();
+
+
+//Configure CORS
+const origin = process.env.ORIGIN || '*';
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials:true
+}));
+
+
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
