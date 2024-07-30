@@ -21,7 +21,7 @@ const app = express();
 //Configure CORS
 const origin = process.env.ORIGIN || '*';
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.ORIGIN || 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials:true
@@ -37,6 +37,8 @@ require("./config")(app);
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
+const productRoutes = require('./routes/products.routes');
+app.use('/api/products', productRoutes);
 //const allRoutes = require("./routes");
 //app.use("/api", allRoutes);
 
@@ -45,7 +47,7 @@ app.use("/api", indexRoutes);
 //app.use("/api", isAuthenticated, projectRouter)
 
 
-//above is just example
+//Authentication routes
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
 
