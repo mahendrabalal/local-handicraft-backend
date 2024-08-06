@@ -11,6 +11,9 @@ const express = require("express");
 const mongoose= require('mongoose');
 const cors = require('cors');
 
+
+
+
 //import middleware
 const {isAuthenticated} = require("./middleware/jwt.middleware");
 
@@ -19,14 +22,15 @@ const app = express();
 
 
 //Configure CORS
-const origin = process.env.ORIGIN || '*';
 app.use(cors({
     origin: process.env.ORIGIN || 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials:true
+    credentials: true
 }));
 
+//preflight 
+app.options('*', cors());
 
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
@@ -50,8 +54,6 @@ app.use('/api/products', productRoutes);
 //Authentication routes
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
-
-require("./error-handling")(app);
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
