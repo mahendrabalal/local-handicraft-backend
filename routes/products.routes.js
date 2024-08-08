@@ -33,6 +33,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//
 // Add a new product
 router.post('/', async (req, res) => {
     const { name, description, price, imageUrl, category, stock } = req.body;
@@ -97,3 +98,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

@@ -9,7 +9,8 @@ const productSchema = new Schema({
     imageUrl: { type: String },
     category: { type: String,enum: ['Electronics', 'Books', 'Clothing', 'Furniture', 'Toys'], default: 'Clothing'},
     stock: { type: Number, default: 0, min: [0, 'Stock cannot be negative']}
-  }, {
+  }, 
+  {
     timestamps: true // Automatically adds createdAt and updatedAt fields
   });
   
