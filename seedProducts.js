@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Product = require('./models/Product.model'); // Adjust the path if necessary
+const Product = require('./models/Product.model'); 
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/local-handicraft-backend';
 
@@ -11,7 +11,7 @@ mongoose.connect(MONGO_URI)
   })
   .then(() => {
     console.log('Seeding Completed');
-    return mongoose.connection.close(); // Ensure connection is closed properly
+    return mongoose.connection.close(); 
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
