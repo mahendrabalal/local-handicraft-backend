@@ -9,7 +9,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Example Cloudinary URL (optional, for testing purposes)
+/* Example Cloudinary URL (optional, for testing purposes)
 const url = cloudinary.url('signUpBanner_iwgqvd', {
     transformation: [{
         quality: 'auto'
@@ -17,7 +17,7 @@ const url = cloudinary.url('signUpBanner_iwgqvd', {
         fetch_format: 'auto'
     }]
 });
-console.log(url); // Remove or comment out in production
+console.log(url); */
 
 // Connect to the database
 require("./db");

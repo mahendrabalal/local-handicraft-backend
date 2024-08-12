@@ -7,8 +7,9 @@ const productSchema = new Schema({
     description: { type: String, default: '' },
     price: { type: Number, required: [true, 'Price is required'], min: [0, 'Price must be a positive number'] },
     imageUrl: { type: String },
-    category: { type: String,enum: ['Electronics', 'Books', 'Clothing', 'Furniture', 'Toys'], default: 'Clothing'},
-    stock: { type: Number, default: 0, min: [0, 'Stock cannot be negative']}
+    category: { type: String,enum: ['Pottery & Ceramics', 'Woodworking', 'Jewelry Making', 'Paper Crafts', 'Textiles', 'Clothing'], default: 'Textiles'},
+    stock: { type: Number, default: 0, min: [0, 'Stock cannot be negative']},
+    sold: { type: Boolean, default: false } 
   }, 
   {
     timestamps: true // Automatically adds createdAt and updatedAt fields

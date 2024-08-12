@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -10,7 +9,7 @@ router.get('/', async (req, res) => {
         const products = await Product.find();
         res.json(products);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Error fetching products', error: err.message });
     }
 });
 
@@ -20,7 +19,7 @@ router.get('/:id', async (req, res) => {
 
     // Check if the ID is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Specified id is not valid' });
+        return res.status(400).json({ message: 'Invalid product ID' });
     }
 
     try {
@@ -30,14 +29,17 @@ router.get('/:id', async (req, res) => {
         }
         res.json(product);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Error fetching product', error: err.message });
     }
 });
 
-//
 // Add a new product
 router.post('/', async (req, res) => {
     const { name, description, price, imageUrl, category, stock } = req.body;
+
+    if (!name || !description || !price || !imageUrl || !category || !stock) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
 
     const product = new Product({
         name,
@@ -52,7 +54,7 @@ router.post('/', async (req, res) => {
         const newProduct = await product.save();
         res.status(201).json(newProduct);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ message: 'Error adding product', error: err.message });
     }
 });
 
@@ -61,7 +63,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Specified id is not valid' });
+        return res.status(400).json({ message: 'Invalid product ID' });
     }
 
     try {
@@ -75,7 +77,28 @@ router.put('/:id', async (req, res) => {
         }
         res.json(updatedProduct);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ message: 'Error updating product', error: err.message });
+    }
+});
+
+// Mark a product as sold
+router.patch('/:id/mark-sold', async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid product ID' });
+    }
+
+    try {
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        product.sold = true;
+        await product.save();
+        res.json(product);
+    } catch (err) {
+        res.status(500).json({ message: 'Error marking product as sold', error: err.message });
     }
 });
 
@@ -84,7 +107,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Specified id is not valid' });
+        return res.status(400).json({ message: 'Invalid product ID' });
     }
 
     try {
@@ -94,7 +117,7 @@ router.delete('/:id', async (req, res) => {
         }
         res.json({ message: 'Product deleted' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Error deleting product', error: err.message });
     }
 });
 
