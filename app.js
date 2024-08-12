@@ -1,27 +1,38 @@
 // ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
 require("dotenv").config();
 
-// ℹ️ Connects to the database
+// Import and configure Cloudinary
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Example Cloudinary URL (optional, for testing purposes)
+const url = cloudinary.url('signUpBanner_iwgqvd', {
+    transformation: [{
+        quality: 'auto'
+    }, {
+        fetch_format: 'auto'
+    }]
+});
+console.log(url); // Remove or comment out in production
+
+// Connect to the database
 require("./db");
 
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
+// Import required packages
 const express = require("express");
-const mongoose= require('mongoose');
 const cors = require('cors');
 
+// Import middleware
+const { isAuthenticated } = require("./middleware/jwt.middleware");
 
-
-
-//import middleware
-const {isAuthenticated} = require("./middleware/jwt.middleware");
-
-//create an Express app
+// Create an Express app
 const app = express();
 
-
-//Configure CORS
+// Configure CORS
 app.use(cors({
     origin: process.env.ORIGIN || 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -29,34 +40,27 @@ app.use(cors({
     credentials: true
 }));
 
-//preflight 
+// Preflight handling
 app.options('*', cors());
 
-
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
+// Middleware configuration (e.g., for parsing JSON)
 require("./config")(app);
 
-
-// 👇 Start handling routes here
+// Start handling routes
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
 const productRoutes = require('./routes/products.routes');
 app.use('/api/products', productRoutes);
-//const allRoutes = require("./routes");
-//app.use("/api", allRoutes);
 
-//example
-//const projectRouter = require("./routes")
-//app.use("/api", isAuthenticated, projectRouter)
+const uploadRoutes = require('./routes/upload.routes'); // Adjusted path
+app.use('/api/upload', uploadRoutes);
 
-
-//Authentication routes
+// Authentication routes
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
 
-
-// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+// Error handling
 require("./error-handling")(app);
 
 module.exports = app;
