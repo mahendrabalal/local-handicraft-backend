@@ -34,7 +34,7 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-    origin: process.env.ORIGIN || 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://local-handicraft.netlify.app'], // Add your production URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
