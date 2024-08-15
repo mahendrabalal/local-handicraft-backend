@@ -4,7 +4,7 @@ const Product = require('./models/Product.model');
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/local-handicraft-backend';
 
 // Connect to MongoDB
-mongoose.connect(MONGO_URI)
+mongoose.connect('mongodb+srv://local-hand-main-db-0d55db6dc5b:Uq7Gk56uvyvHnr9CG9eTVHafZy4NgG@prod-us-central1-1.lfuy1.mongodb.net/local-hand-main-db-0d55db6dc5b')
   .then(() => {
     console.log('Connected to MongoDB for seeding');
     return seedProducts();
@@ -28,7 +28,7 @@ async function seedProducts() {
             description: 'Beautiful handcrafted wooden bowl, ideal for serving and decoration.',
             price: 22.99,
             imageUrl: 'https://i.etsystatic.com/25531572/r/il/11a52d/2902491484/il_570xN.2902491484_39hx.jpg',
-            category: 'Woodwork',
+            category: 'Woodworking',
             stock: 10,
           },
           {
@@ -52,7 +52,7 @@ async function seedProducts() {
             description: 'Elegant ceramic tea set with hand-painted designs, includes teapot and cups.',
             price: 55.99,
             imageUrl: 'http://example.com/tea-set.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 8,
           },
           {
@@ -76,7 +76,7 @@ async function seedProducts() {
             description: 'Unique hand-carved wooden figurine, perfect for display and collection.',
             price: 28.00,
             imageUrl: 'http://example.com/wooden-figurine.jpg',
-            category: 'Woodwork',
+            category: 'Woodworking',
             stock: 25,
           },
           {
@@ -84,7 +84,7 @@ async function seedProducts() {
             description: 'Beautifully crafted beaded necklace with vibrant colors and patterns.',
             price: 12.99,
             imageUrl: 'http://example.com/beaded-necklace.jpg',
-            category: 'Jewelry',
+            category: 'Jewelry Making',
             stock: 30,
           },
           {
@@ -92,7 +92,7 @@ async function seedProducts() {
             description: 'Charming hand-painted wooden sign, perfect for personalized home decor.',
             price: 24.50,
             imageUrl: 'http://example.com/wooden-sign.jpg',
-            category: 'Woodwork',
+            category: 'Woodworking',
             stock: 20,
           },
           {
@@ -100,7 +100,7 @@ async function seedProducts() {
             description: 'Authentic rustic clay pot, great for indoor plants or as a decorative piece.',
             price: 27.75,
             imageUrl: 'http://example.com/clay-pot.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 14,
           },
           {
@@ -116,7 +116,7 @@ async function seedProducts() {
             description: 'Set of three handcrafted wooden spoons, perfect for cooking and serving.',
             price: 19.50,
             imageUrl: 'http://example.com/wooden-spoons.jpg',
-            category: 'Woodwork',
+            category: 'Woodworking',
             stock: 17,
           },
           {
@@ -124,7 +124,7 @@ async function seedProducts() {
             description: 'Stylish ceramic wall planter, ideal for growing small plants or herbs.',
             price: 29.99,
             imageUrl: 'http://example.com/wall-planter.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 16,
           },
           {
@@ -140,7 +140,7 @@ async function seedProducts() {
             description: 'Elegant handcrafted silver ring with intricate designs.',
             price: 48.00,
             imageUrl: 'http://example.com/silver-ring.jpg',
-            category: 'Jewelry',
+            category: 'Jewelry Making',
             stock: 12,
           },
           {
@@ -156,7 +156,7 @@ async function seedProducts() {
             description: 'Unique handcrafted ceramic mug, perfect for your morning coffee or tea.',
             price: 21.00,
             imageUrl: 'http://example.com/ceramic-mug.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 22,
           },
           {
@@ -164,7 +164,7 @@ async function seedProducts() {
             description: 'Elegant handmade soap dish, crafted from natural materials.',
             price: 16.50,
             imageUrl: 'http://example.com/soap-dish.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 18,
           },
           {
@@ -180,7 +180,7 @@ async function seedProducts() {
             description: 'Beautifully hand-carved wooden jewelry box with intricate designs.',
             price: 58.00,
             imageUrl: 'http://example.com/jewelry-box.jpg',
-            category: 'Woodwork',
+            category: 'Woodworking',
             stock: 8,
           },
           {
@@ -188,7 +188,7 @@ async function seedProducts() {
             description: 'Artisan-crafted ceramic vase with unique patterns and colors.',
             price: 34.99,
             imageUrl: 'http://example.com/ceramic-vase.jpg',
-            category: 'Ceramics',
+            category: 'Pottery & Ceramics',
             stock: 14,
           },
           {
@@ -196,7 +196,7 @@ async function seedProducts() {
             description: 'Set of three beaded bracelets, each with a different design.',
             price: 18.00,
             imageUrl: 'http://example.com/beaded-bracelets.jpg',
-            category: 'Jewelry',
+            category: 'Jewelry Making',
             stock: 25,
           },
           {
