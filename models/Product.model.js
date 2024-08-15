@@ -9,7 +9,9 @@ const productSchema = new Schema({
     imageUrl: { type: String },
     category: { type: String,enum: ['Pottery & Ceramics', 'Leatherwork', 'Woodworking', 'Jewelry Making', 'Paper Crafts', 'Baskets', 'Textiles', 'Clothing'], default: 'Textiles'},
     stock: { type: Number, default: 0, min: [0, 'Stock cannot be negative']},
-    sold: { type: Boolean, default: false } 
+    sold: { type: Boolean, default: false },
+    averageRating: { type: Number, default: 0 }, 
+
   }, 
   {
     timestamps: true // Automatically adds createdAt and updatedAt fields
