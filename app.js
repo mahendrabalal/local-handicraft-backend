@@ -9,16 +9,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-/* Example Cloudinary URL (optional, for testing purposes)
-const url = cloudinary.url('signUpBanner_iwgqvd', {
-    transformation: [{
-        quality: 'auto'
-    }, {
-        fetch_format: 'auto'
-    }]
-});
-console.log(url); */
-
 // Connect to the database
 require("./db");
 
@@ -32,9 +22,15 @@ const { isAuthenticated } = require("./middleware/jwt.middleware");
 // Create an Express app
 const app = express();
 
+// Get allowed origins from environment variables
+const allowedOrigins = [
+    'http://localhost:5173', // Local development origin
+    'https://localhandicraft.netlify.app' // Production origin
+].filter(Boolean); // Remove any undefined or null values
+
 // Configure CORS
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://localhandicraft.netlify.app'], // Add your production URL
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
