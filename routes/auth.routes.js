@@ -92,8 +92,8 @@ router.get('/profile', isAuthenticated, async (req, res) => {
         }
 
         // Include profileImage and bio in the response
-        const { email, name, _id, profileImage, bio } = user;
-        res.status(200).json({ email, name, _id, profileImage, bio });
+        const { email, name, _id, profileImage, bio, socialLinks, hobbies} = user;
+        res.status(200).json({ email, name, _id, profileImage, bio, socialLinks, hobbies});
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -103,7 +103,7 @@ router.get('/profile', isAuthenticated, async (req, res) => {
 
 // PUT /auth/profile - Update user profile
 router.put('/profile', isAuthenticated, async (req, res) => {
-    const { name, email, profileImage, bio } = req.body;
+    const { name, email, profileImage, bio, socialLinks, hobbies} = req.body;
 
     try {
         // Check if name and email are provided, which are mandatory fields
@@ -112,7 +112,7 @@ router.put('/profile', isAuthenticated, async (req, res) => {
         // Update user with name, email, profileImage, and bio
         const updatedUser = await User.findByIdAndUpdate(
             req.payload._id,
-            { name, email, profileImage, bio }, // Add profileImage and bio here
+            { name, email, profileImage, bio, socialLinks, hobbies}, // Add profileImage and bio here
             { new: true } // Return the updated document
         );
 
