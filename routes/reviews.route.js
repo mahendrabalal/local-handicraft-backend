@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+const { isAuthenticated } = require('../middleware/jwt.middleware');
 const Review = require('../models/review.model');
 const Product = require('../models/Product.model');
-const { isAuthenticated } = require('../middleware/jwt.middleware'); // Adjust path as needed
 
-// POST /api/reviews/product/:productId/rate - Rate a product
+// Protected route to submit a review
 router.post('/product/:productId/rate', isAuthenticated, async (req, res) => {
     const { productId } = req.params;
-    const { rating } = req.body;
+    const { rating, comment } = req.body;
 
     if (!rating || rating < 1 || rating > 5) {
         return res.status(400).json({ message: 'Rating must be between 1 and 5' });
@@ -18,7 +17,8 @@ router.post('/product/:productId/rate', isAuthenticated, async (req, res) => {
         const newReview = new Review({
             user: req.payload._id,
             product: productId,
-            rating
+            rating,
+            comment
         });
 
         await newReview.save();
