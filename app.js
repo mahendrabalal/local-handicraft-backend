@@ -49,7 +49,7 @@ app.use("/api", indexRoutes);
 const productRoutes = require('./routes/products.routes');
 app.use('/api/products', productRoutes);
 
-const reviewRoutes = require('./routes/reviews.route'); // Adjust the path as necessary
+const reviewRoutes = require('./routes/reviews.routes'); // Adjust the path as necessary
 app.use('/api/reviews', reviewRoutes);
 
 const uploadRoutes = require('./routes/upload.routes'); // Adjusted path

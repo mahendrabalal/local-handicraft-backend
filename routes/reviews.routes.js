@@ -4,9 +4,9 @@ const { isAuthenticated } = require('../middleware/jwt.middleware');
 const Review = require('../models/review.model');
 const Product = require('../models/Product.model');
 
-// Protected route to submit a review
-router.post('/product/:productId/rate', isAuthenticated, async (req, res) => {
-    const { productId } = req.params;
+// Ensure this route is correctly defined
+router.post('/product/:id/rate', isAuthenticated, async (req, res) => {
+    const { id: productId } = req.params;
     const { rating, comment } = req.body;
 
     if (!rating || rating < 1 || rating > 5) {
@@ -23,16 +23,15 @@ router.post('/product/:productId/rate', isAuthenticated, async (req, res) => {
 
         await newReview.save();
 
-        // Calculate the average rating for the product
         const reviews = await Review.find({ product: productId });
         const avgRating = (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(2);
 
-        // Update the product with the new average rating
-        await Product.findByIdAndUpdate(productId, { averageRating: avgRating });
+        await Product.findByIdAndUpdate(productId, { averageRating: avgRating }, { new: true });
 
         res.status(201).json({ averageRating: avgRating });
     } catch (error) {
-        res.status(500).json({ message: 'Error submitting rating', error: error.message });
+        console.error('Error submitting review:', error);
+        res.status(500).json({ message: 'Error submitting review', error: error.message });
     }
 });
 
