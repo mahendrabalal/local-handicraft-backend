@@ -8,14 +8,14 @@ router.post('/send-email', async (req, res) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'your-email@gmail.com',
-            pass: 'your-gmail-password'
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
         }
     });
 
-    let mailOptions = {
+    const mailOptions = {
         from: `"${name}" <${email}>`,
-        to: 'recipient@example.com', // Your email address
+        to: process.env.EMAIL_USER,
         subject: subject,
         text: message,
         html: `<p>You have a new contact request</p>
@@ -35,8 +35,7 @@ router.post('/send-email', async (req, res) => {
         res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
         console.error('Error sending email:', error);
-        res.status(500).json({ message: 'Failed to send email' });
+        res.status(500).json({ message: 'Failed to send email', error: error.message });
     }
 });
-
 module.exports = router;

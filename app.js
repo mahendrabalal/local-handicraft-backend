@@ -46,13 +46,19 @@ require("./config")(app);
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
+//product routes
 const productRoutes = require('./routes/products.routes');
 app.use('/api/products', productRoutes);
 
+//review
 const reviewRoutes = require('./routes/reviews.routes'); // Adjust the path as necessary
 app.use('/api/reviews', reviewRoutes);
 
+// send e-mail
+const sendEmail =  require('./routes/email.routes');
+app.use('/api/email', sendEmail);
 
+//upload
 const uploadRoutes = require('./routes/upload.routes'); // Adjusted path
 app.use('/api/upload', uploadRoutes);
 
