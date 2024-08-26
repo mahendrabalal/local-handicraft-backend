@@ -42,9 +42,7 @@ app.options('*', cors());
 // Middleware configuration (e.g., for parsing JSON)
 require("./config")(app);
 
-// Start handling routes
-const indexRoutes = require("./routes/index.routes");
-app.use("/api", indexRoutes);
+
 
 //product routes
 const productRoutes = require('./routes/products.routes');

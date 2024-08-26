@@ -4,7 +4,7 @@ const Product = require('./models/Product.model');
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/local-handicraft-backend';
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://local-hand-main-db-0d55db6dc5b:Uq7Gk56uvyvHnr9CG9eTVHafZy4NgG@prod-us-central1-1.lfuy1.mongodb.net/local-hand-main-db-0d55db6dc5b')
+mongoose.connect('mongodb+srv://localhandicraft-main-db-0fdd6b77074:pjVdKbcy9jE3CFzmC9FKKh5FC6VRUm@prod-us-central1-1.lfuy1.mongodb.net/localhandicraft-main-db-0fdd6b77074')
   .then(() => {
     console.log('Connected to MongoDB for seeding');
     return seedProducts();
