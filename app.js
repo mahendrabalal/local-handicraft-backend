@@ -26,15 +26,22 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173', // Local development origin
     'https://localhandicraft.netlify.app' // Production origin
-].filter(Boolean); // Remove any undefined or null values
+];
 
-// Configure CORS
+// Set up CORS middleware with detailed options
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
+    origin: function (origin, callback) {
+      // Check if the incoming origin is allowed
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error('Not allowed by CORS')); // Block the request
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow additional HTTP methods if needed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow headers needed by your requests
+    credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
+  }));
 
 // Preflight handling
 app.options('*', cors());
