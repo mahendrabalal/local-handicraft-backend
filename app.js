@@ -56,7 +56,7 @@ const productRoutes = require('./routes/products.routes');
 app.use('/api/products', productRoutes);
 
 //review
-const reviewRoutes = require('./routes/reviews.routes'); // Adjust the path as necessary
+const reviewRoutes = require('./routes/reviews.routes');
 app.use('/api/reviews', reviewRoutes);
 
 // send e-mail
